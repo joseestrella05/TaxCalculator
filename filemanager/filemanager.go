@@ -8,8 +8,13 @@ import (
 	"os"
 )
 
-func Readline(path string) ([]string, error) {
-	file, err := os.Open(path)
+type FileManager struct {
+	InputFilePath  string
+	OutputFilePath string
+}
+
+func (fm FileManager) Readline() ([]string, error) {
+	file, err := os.Open(fm.InputFilePath)
 
 	if err != nil {
 		fmt.Println("Could not open File!")
@@ -38,8 +43,8 @@ func Readline(path string) ([]string, error) {
 
 }
 
-func WriteJSOn(path string, data interface{}) error {
-	file, err := os.Create(path)
+func (fm FileManager) WriteResult(data interface{}) error {
+	file, err := os.Create(fm.OutputFilePath)
 
 	if err != nil {
 		return errors.New("Failed to create file.")
@@ -55,4 +60,12 @@ func WriteJSOn(path string, data interface{}) error {
 
 	file.Close()
 	return nil
+}
+
+func New(inputPath string, outputPath string) FileManager {
+	return FileManager{
+		InputFilePath:  inputPath,
+		OutputFilePath: outputPath,
+	}
+
 }
