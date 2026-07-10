@@ -13,7 +13,7 @@ type FileManager struct {
 	OutputFilePath string
 }
 
-func (fm FileManager) Readline() ([]string, error) {
+func (fm FileManager) ReadLines() ([]string, error) {
 	file, err := os.Open(fm.InputFilePath)
 
 	if err != nil {
